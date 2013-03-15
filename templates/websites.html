@@ -34,16 +34,15 @@
 
         {% for year in year_users.iterkeys() %}
             <h4>{{ year }}</h4>
-            {% for i in range(year_users[year]|length % 4) %}
-            <div class="row-fluid students">
-              {% for j in range(4) %}
-              {%  if  year_users[year][i*j] %}
-              <div class="span3"><a href="http://{{ year_users[year][i*j].website}}">{{ year_users[year][i*j].name }}</a></div>
-              {% endif %}
-              {% endfor %}
+            {% for i in range( (year_users[year]|length / 4)|round(method='ceil')|int ) %}
+              <div class="row-fluid students">
+                {% for j in range(0,4) %}
+                  {%  if  year_users[year][i + j] is defined %}
+                    <div class="span3"><a href="http://{{ year_users[year][i*j].website}}">{{ year_users[year][i + j].name }}</a></div>
+                  {% endif %}
+                {% endfor %}
               </div>
             {% endfor %}
-
         {% endfor %}
 
   <!--     <h4>2013</h4>
